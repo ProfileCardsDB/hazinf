@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazinf's Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --deep-blue: #0a1f3a;
+            --darker-blue: #07203a;
+            --accent-blue: #1a4b8c;
+            --highlight-blue: #2a75bb;
+            --white: #FFFFFF;
+            --black: #000000;
+            --shadow: 0 0 20px rgba(26, 75, 140, 0.7);
+            --text-shadow: 0 0 10px rgba(42, 117, 187, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--deep-blue);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--darker-blue), var(--deep-blue));
+        }
+
+        .background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(42, 117, 187, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(42, 117, 187, 0.15) 0%, transparent 25%),
+                linear-gradient(to bottom, transparent 95%, rgba(10, 31, 58, 0.8));
+            animation: pulse 15s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .glow-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--highlight-blue);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-blue);
+            bottom: 5%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+
+        .circle-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--highlight-blue);
+            top: 60%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(50px, 50px);
+            }
+            50% {
+                transform: translate(-50px, 50px);
+            }
+            75% {
+                transform: translate(-50px, -50px);
+            }
+        }
+
+        /* Profile Card */
+        .profile-card {
+            width: 90%;
+            max-width: 400px;
+            background: rgba(7, 32, 58, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: all 0.5s ease;
+            animation: cardFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% {
+                transform: perspective(1000px) translateY(0) rotateX(0deg) rotateY(0deg);
+            }
+            50% {
+                transform: perspective(1000px) translateY(-20px) rotateX(2deg) rotateY(2deg);
+            }
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--highlight-blue), var(--accent-blue));
+            background-size: 400% 400%;
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0.7;
+            animation: gradient 8s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Profile Picture - EXACTLY like your reference */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(42, 117, 187, 0.5);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(42, 117, 187, 0.7);
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-pic::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: rgba(42, 117, 187, 0.7);
+            border-left-color: rgba(42, 117, 187, 0.7);
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .profile-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, var(--highlight-blue), var(--white));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--text-shadow);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px var(--highlight-blue), 0 0 10px var(--highlight-blue);
+            }
+            to {
+                text-shadow: 0 0 10px var(--highlight-blue), 0 0 20px var(--accent-blue), 0 0 30px var(--darker-blue);
+            }
+        }
+
+        .profile-title {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .profile-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+
+        /* Music Player */
+        .music-player {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .song-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .song-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .song-artist {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 40%;
+            background: linear-gradient(to right, var(--highlight-blue), var(--accent-blue));
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            color: var(--highlight-blue);
+            transform: scale(1.1);
+        }
+
+        .play-btn {
+            background: var(--highlight-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(42, 117, 187, 0.5);
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, var(--highlight-blue), transparent);
+        }
+
+        /* Social Buttons */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord-btn {
+            background: linear-gradient(45deg, #5865F2, #7289DA);
+            color: white;
+        }
+
+        .github-btn {
+            background: linear-gradient(45deg, #333, #6e5494);
+            color: white;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-btn:active {
+            transform: translateY(1px);
+        }
+
+        .social-btn i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .social-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 10;
+        }
+
+        .copyright {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copyright a {
+            color: var(--highlight-blue);
+            text-decoration: none;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .notification i {
+            color: var(--highlight-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .profile-card {
+                width: 95%;
+            }
+            
+            .profile-body {
+                padding: 30px 20px 20px;
+            }
+            
+            .profile-name {
+                font-size: 1.5rem;
+            }
+            
+            .social-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .social-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="glow-circle circle-1"></div>
+        <div class="glow-circle circle-2"></div>
+        <div class="glow-circle circle-3"></div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+        <div class="profile-body">
+            <!-- Profile Picture positioned exactly like your reference -->
+            <div class="profile-pic">
+                <img src="https://i.ebayimg.com/images/g/zNMAAOSwS7hhBjIA/s-l400.jpg" alt="Hazinf's Profile Picture">
+            </div>
+            
+            <h1 class="profile-name">Hazinf</h1>
+            <p class="profile-title">Creative Full Stack Developer</p>
+            
+            <!-- Music Player -->
+            <div class="music-player">
+                <div class="song-info">
+                    <div>
+                        <div class="song-title">SONG TITLE</div>
+                        <div class="song-artist">ARTIST NAME</div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                
+                <div class="time-display">
+                    <span>1:40</span>
+                    <span>3:15</span>
+                </div>
+                
+                <div class="player-controls">
+                    <button class="control-btn"><i class="fas fa-step-backward"></i></button>
+                    <button class="control-btn play-btn"><i class="fas fa-play"></i></button>
+                    <button class="control-btn"><i class="fas fa-step-forward"></i></button>
+                </div>
+                
+                <!-- Hidden YouTube iframe -->
+                <iframe id="youtube-player" width="0" height="0" src="https://www.youtube.com/embed/zdYzL6wkr0A?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: none;"></iframe>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="social-buttons">
+                <a href="#" class="social-btn discord-btn" id="discord-btn">
+                    <i class="fab fa-discord"></i>
+                    Discord
+                </a>
+                <a href="https://github.com/hazinf" class="social-btn github-btn" target="_blank">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="copyright">
+            <span>&copy; 2025</span>
+            <a href="#" target="_blank">Hazinf</a>
+            <span>All Rights Reserved</span>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">Discord username copied!</span>
+    </div>
+
+    <script>
+        // Discord button click handler
+        document.getElementById('discord-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Copy username to clipboard
+            navigator.clipboard.writeText('hazinf').then(() => {
+                showNotification('Discord username "hazinf" copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        });
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Add mouse move effect to profile card
+        const card = document.querySelector('.profile-card');
+        
+        card.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Reset card position when mouse leaves
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+            card.style.transition = 'all 0.5s ease';
+            setTimeout(() => {
+                card.style.transition = '';
+            }, 500);
+        });
+
+        // Music player functionality
+        const playBtn = document.querySelector('.play-btn');
+        const progressBar = document.querySelector('.progress-bar');
+        let isPlaying = false;
+        let player;
+
+        // YouTube API
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                isPlaying = false;
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        });
+
+        // Progress bar click handler
+        document.querySelector('.progress-container').addEventListener('click', (e) => {
+            const containerWidth = e.currentTarget.clientWidth;
+            const clickPosition = e.offsetX;
+            const percentage = (clickPosition / containerWidth) * 100;
+            const seekTo = player.getDuration() * (percentage / 100);
+            player.seekTo(seekTo);
+            progressBar.style.width = `${percentage}%`;
+        });
+
+        // Update progress bar
+        function updateProgressBar() {
+            if (isPlaying) {
+                const currentTime = player.getCurrentTime();
+                const duration = player.getDuration();
+                const percentage = (currentTime / duration) * 100;
+                progressBar.style.width = `${percentage}%`;
+                
+                // Update time display
+                document.querySelector('.time-display span:first-child').textContent = 
+                    formatTime(currentTime);
+            }
+            requestAnimationFrame(updateProgressBar);
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            // Add animation to profile pic on load
+            const profilePic = document.querySelector('.profile-pic');
+            profilePic.style.transform = 'scale(0)';
+            setTimeout(() => {
+                profilePic.style.transition = 'transform 0.5s ease-out';
+                profilePic.style.transform = 'scale(1)';
+            }, 100);
+            
+            // Load YouTube API
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            
+            // Start progress bar updates
+            setTimeout(updateProgressBar, 1000);
+        });
+    </script>
+</body>
+</html>
